@@ -1,26 +1,26 @@
 [
   {
-    "type": "user",
-    "message": "What have I just say"
+    "type": "I",
+    "message": "hello"
   },
   {
-    "type": "bot",
-    "message": " Based on the provided chat history, you just said \"hi.\"\n\n "
+    "type": "I",
+    "message": "what have we discuss"
   },
   {
-    "type": "user",
-    "message": "can you make python adding number, just one method, no explaination, just code"
+    "type": "I",
+    "message": "what have I say ?"
   },
   {
-    "type": "bot",
-    "message": " ```python\ndef add_numbers(a, b):\n    return a + b\n```\n\n "
+    "type": "I",
+    "message": "create python adding number, just code, no explaination"
   },
   {
-    "type": "user",
-    "message": "Can you make it into typescript, still do the same thing, no explaination, just code"
+    "type": "I",
+    "message": "Now make the task to typescript file"
   },
   {
-    "type": "bot",
-    "message": " Here's the TypeScript version of the Python function you asked for:\n\n```typescript\nfunction addNumbers(a: number, b: number): number {\n    return a + b;\n}\n```\n\n "
+    "type": "I",
+    "message": "thanks you"
   }
 ]

@@ -102,7 +102,6 @@ class ChatPanel {
                     this._panel.webview.postMessage({ command: 'streamOutput', text: fullres });
                 }
             }
-            utils.addData({type: 'bot', message: fullres})
         } catch (error) {
             console.error('API Error:', error);
             return 'Error getting response from AI.';
@@ -284,14 +283,14 @@ async function api(){
         console.log('Model started:', model.pid);
         console.log(historychat)
         if (historychat !== ''){
-            finalPrompt = `I will give you a history of a chat, you should response with following prompt, and do not response too long: ${prompt}. The history prompt is ${historychat}`
+            finalPrompt = `You will act as the assistant, please do the ollowing prompt is "${prompt}". then you will follow the conversations and please do following lastest content and not mention the queried asked unless user asked. The queries asked is: ${historychat}`
         }
         else {
             finalPrompt = prompt
         }
         model.stdin.write(`${finalPrompt}\n`);
         model.stdin.end()
-        utils.addData({type: 'user', message: prompt})
+        utils.addData({type: 'I', message: prompt})
         await model.stdout.on('data', (data) => {
             let chunk = data.toString();
             // Process output
