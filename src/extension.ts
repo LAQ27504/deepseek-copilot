@@ -79,7 +79,6 @@ class ChatPanel {
     }
     private async fetchAIResponse(prompt: string) {
         try {
-            console.log(prompt)
             this._panel.webview.postMessage({ command: 'clearOutput' });
             const response = await fetch('http://localhost:8000/deepseek', {
                 method: 'POST',
@@ -100,7 +99,6 @@ class ChatPanel {
                     const data = JSON.parse(buffer); 
                     let smalltext = data.text; // 
                     fullres += smalltext + " "
-                    console.log(fullres)
                     this._panel.webview.postMessage({ command: 'streamOutput', text: fullres });
                 }
             }
@@ -269,9 +267,8 @@ async function api(){
     app.use(express.json())
     
     app.post('/deepseek', async (req: Request, res: Response) => {
-        utils.readAllData()
+        let historychat = utils.readAllData()
         const {prompt, model_name} = req.body;
-        console.log(req.body)
         res.setHeader('Content-Type', 'text/event-stream');
         res.setHeader('Cache-Control', 'no-cache');
         res.setHeader('Connection', 'keep-alive');
@@ -283,10 +280,16 @@ async function api(){
             res.write(`data: ${JSON.stringify({ error: err.message })}\n\n`);
             res.end();
         });
-    
+        let finalPrompt = ""
         console.log('Model started:', model.pid);
-    
-        model.stdin.write(`${prompt}\n`);
+        console.log(historychat)
+        if (historychat !== ''){
+            finalPrompt = `I will give you a history of a chat, you should response with following prompt, and do not response too long: ${prompt}. The history prompt is ${historychat}`
+        }
+        else {
+            finalPrompt = prompt
+        }
+        model.stdin.write(`${finalPrompt}\n`);
         model.stdin.end()
         utils.addData({type: 'user', message: prompt})
         await model.stdout.on('data', (data) => {

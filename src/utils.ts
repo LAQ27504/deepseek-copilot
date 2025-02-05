@@ -53,12 +53,12 @@ export function removeLastData(): void {
 // Read all data
 export function readAllData() {
     const data = loadData();
-
+    let historychat = ''
     data.forEach(element => {
-        console.log(JSON.stringify(element))
+        historychat+= JSON.stringify(element)
     });
     
-    console.log("All Data:", data);
+    return historychat
 }
 
 

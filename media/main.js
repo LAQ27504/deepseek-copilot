@@ -50,7 +50,7 @@ window.addEventListener('message', (event) => {
             chat.appendChild(lastMsg);
         }
         
-        lastMsg.innerHTML = md.render("Deepseek coder: " + message.text);
+        lastMsg.innerHTML = md.render("Deepseek coder: \n" + message.text);
         chat.scrollTop = chat.scrollHeight;
         if (state.messages[state.messages.length - 1].type === 'bot'){
             state.messages[state.messages.length - 1].text = "Deepseek coder: " + message.text;

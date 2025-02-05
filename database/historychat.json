@@ -1,26 +1,26 @@
 [
   {
     "type": "user",
-    "message": "hi"
+    "message": "What have I just say"
   },
   {
     "type": "bot",
-    "message": " Hello! How can I assist you today? If you have any questions or need help with something, feel free to ask.\n\n "
+    "message": " Based on the provided chat history, you just said \"hi.\"\n\n "
   },
   {
     "type": "user",
-    "message": "hi"
+    "message": "can you make python adding number, just one method, no explaination, just code"
   },
   {
     "type": "bot",
-    "message": " Hello! How can I assist you today? If you have any questions or need help with something, feel free to ask.\n\n "
+    "message": " ```python\ndef add_numbers(a, b):\n    return a + b\n```\n\n "
   },
   {
     "type": "user",
-    "message": "can you write python code"
+    "message": "Can you make it into typescript, still do the same thing, no explaination, just code"
   },
   {
     "type": "bot",
-    "message": " Of course! What specific Python code do you need? Here are a few examples to get started:\n\n### 1. Hello, World!\n```python\nprint(\"Hello, World!\")\n```\n\n### 2. Basic Calculator for Addition\n```python\ndef add(a, b):\n    return a + b\n\nresult = add(5, 3)\nprint(\"The result of addition is:\", result)\n```\n\n### 3. Simple List Comprehension\n```python\nnumbers = [1, 2, 3, 4, 5]\nsquared_numbers = [x**2 for x in numbers]\nprint(\"Squared numbers are:\", squared_numbers)\n```\n\n### 4. Function to Check if a Number is Even\n```python\ndef is_even(n):\n    return n % 2 == 0\n\nnumber = int(input(\"Enter a number: \"))\nif is_even(number):\n    print(f\"{number} is even.\")\nelse:\n    print(f\"{number} is odd.\")\n```\n\n### 5. File Handling to Read from a File\n```python\nwith open('example.txt', 'r') as file:\n    content = file.read()\n    print(\"Content of the file:\", content)\n```\n\n### 6. Simple Web Scraping with `requests` and `BeautifulSoup`\n```python\nimport requests\nfrom bs4 import BeautifulSoup\n\nurl = 'https://example.com'\nresponse = requests.get(url)\nsoup = BeautifulSoup(response.content, 'html.parser')\nprint(\"Title of the webpage:\", soup.title.text)\n```\n\n### 7. Using `pandas` for Data Analysis\n```python\nimport pandas as pd\n\ndata = {\n    'Name': ['Alice', 'Bob', 'Charlie'],\n    'Age': [25, 30, 35],\n    'City': ['New York', 'Los Angeles', 'Chicago']\n}\ndf = pd.DataFrame(data)\nprint(\"Dataframe:\\n\", df)\n```\n\n### 8. Flask Web Framework for a Simple API\n```python\nfrom flask import Flask, request, jsonify\napp = Flask(__name__)\n\n@app.route('/add', methods=['GET'])\ndef add():\n    a = request.args.get('a', type=int)\n    b = request.args.get('b', type=int)\n    return jsonify(result=a + b)\n\nif __name__ == '__main__':\n    app.run(debug=True)\n```\n\n### 9. Using `matplotlib` for Plotting\n```python\nimport matplotlib.pyplot as plt\n\nx = [1, 2, 3, 4, 5]\ny = [i**2 for i in x]\n\nplt.plot(x, y)\nplt.xlabel('X-axis')\nplt.ylabel('Y-axis')\nplt.title('Simple Plot')\nplt.show()\n```\n\n### 10. Simple Threading Example\n```python\nimport threading\nimport time\n\ndef print_numbers():\n    for i in range(1, 11):\n        print(i)\n        time.sleep(1)\n\nthread = threading.Thread(target=print_numbers)\nthread.start()\nthread.join()\n```\n\nFeel free to ask if you need a specific type of code or more examples!\n\n "
+    "message": " Here's the TypeScript version of the Python function you asked for:\n\n```typescript\nfunction addNumbers(a: number, b: number): number {\n    return a + b;\n}\n```\n\n "
   }
 ]
