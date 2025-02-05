@@ -1,49 +1,33 @@
-async function streamGeneration(prompt: string, model = 'deepseek-coder-v2') {
-  const response = await fetch('http://localhost:8000/deepseek', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ prompt, model }),
-  });
+import * as child_process from 'child_process';
 
-  if (!response.body) {
-      console.error('No response body');
-      return;
-  }
+import * as readline from 'readline';
 
-  const reader = response.body.getReader();
-  const decoder = new TextDecoder();
-  let fullResponse = '';
-  let buffer = '';
+// Create an interface to read from stdin (standard input) and write to stdout (standard output)
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
-  async function readStream() {
-      while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
+// Ask for input
 
-          buffer += decoder.decode(value, { stream: true });
+let buffer = '';
+// Start the model process
+let model = child_process.exec('ollama run deepseek-coder-v2')
 
-          // Process event-stream messages
-          const lines = buffer.split('\n');
-          buffer = lines.pop() || ''; // Keep incomplete data in buffer
 
-          for (const line of lines) {
-              if (line.startsWith('data: ')) {
-                  try {
-                      const data = JSON.parse(line.slice(6)); // Remove "data: "
-                      process.stdout.write(data.text + '\n'); // Add newline for readability
-                      fullResponse += data.text;
-                  } catch (error) {
-                      console.error('Error parsing JSON:', error);
-                  }
-              }
-          }
-      }
-  }
+model.stdin?.write("hi\0")
+process.stdin.resume()
 
-  await readStream();
-  console.log('\nFinal response:\n', fullResponse);
-}
+model.stdout?.on('data', (data)=> {
+    let chunk = data.toString();
+        // Process output
+        let words;
 
-streamGeneration("Create a python script for adding number for me")
+        buffer += chunk;
+        words = buffer.split(" ");
+        buffer = words.pop() || ''; // Keep last incomplete word
+        console.log(words)
+        if (words.length > 0) {
+            console.log(words.join(' '))
+        }
+})
